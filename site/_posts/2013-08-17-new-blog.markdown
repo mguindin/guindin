@@ -1,0 +1,15 @@
+---
+layout: post
+title:  "New Blog for my musings"
+date:   2013-08-17 13:02:00
+categories: jekyll blog
+---
+
+So I decided to start recording my thoughts and musings on my blog,
+finally.  
+<p>I ended up using [Jekyll][jekyll] for managing/generating the
+static site and I'll continue to redesign my site using
+[Bootstrap][bootstrap].  So we'll see where this takes me, but I think
+it's a start.</p>
+[jekyll]: http://jekyllrb.com
+[bootstrap]: http://getbootstrap.com
