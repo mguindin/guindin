@@ -1,0 +1,14 @@
+    <div id="footer">
+        <p>&copy; Matthew Guindin</p>
+      </div>
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/public/js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+    {{range .moreScripts}}
+      <script src="/public/js/{{.}}" type="text/javascript" charset="utf-8"></script>
+    {{end}}
+
+  {{if eq .RunMode "dev"}}
+    {{template "debug.html" .}}
+  {{end}}
+  </body>
+</html>

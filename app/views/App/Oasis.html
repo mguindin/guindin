@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en-US" xml:lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>OASIS</title>
+<script type="text/javascript" src="/public/js/oasis.js">
+</script>
+
+</head>
+
+<body>
+<input id='button1' type="button" onclick="searchTrack()" value="GPS Search/Track"/>
+<input id='button2' type="button" onclick="" value="GPS Standby"/>
+<input id='button3' type="button" onclick="" value=""/>
+<input id='gps_b' type="button" onclick="nightMode(nightmode,gps_f,bft_f,is_f)" value="NIGHT"/>
+100%
+<b id='time'> 000/0000 </b>
+<input type="button" onclick="close_box()" value="POWER"/><br />
+GPS Strength:
+<b id='gpsStrength'>NONE</b>
+TI Connection:
+<b id='tiStrength'>NONE</b>
+<input id='button4' type="button" onclick="changeMessageToText()" value="IOI"/>
+<br /> 
+<b id='message'>OASIS</b><br />
+<b id='message2'></b><br />
+<canvas id="mapCanvas" width="480" height="640"></canvas>
+<script type="text/javascript">drawing()</script>
+<br />
+<noscript>
+    <p>Need to enable JavaScript functionality.</p>
+</noscript>
+</body>
+</html> 
