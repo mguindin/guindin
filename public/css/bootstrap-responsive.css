@@ -294,14 +294,15 @@
   }
   .navbar-fixed-top {
     position: static;
+    margin-left: 30px;
     margin-bottom: 18px;
   }
   .navbar-fixed-top .navbar-inner {
-    padding: 5px;
+    padding: 30px;
   }
   .navbar .container {
     width: auto;
-    padding: 0;
+    padding: 30;
   }
   .navbar .brand {
     padding-left: 10px;
@@ -313,7 +314,7 @@
   }
   .navbar .nav {
     float: none;
-    margin: 0 0 9px;
+    margin: 30 0 9px;
   }
   .navbar .nav > li {
     float: none;

@@ -1,3 +1,5 @@
 site/_site
 *.swp
+*.iml
 .DS_Store
+.idea/
