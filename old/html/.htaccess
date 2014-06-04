@@ -1,6 +1,0 @@
-RewriteEngine on
-RewriteCond %{HTTP_HOST} ^guindin\.com$ [NC]
-RewriteRule ^(.*)$ http://matt.guindin.com/$1 [R=301,L]
-
-RewriteCond %{HTTP_HOST} ^www\.guindin\.com$ [NC]
-RewriteRule ^(.*)$ http://matt.guindin.com/$1 [R=301,L]
