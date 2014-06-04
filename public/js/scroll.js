@@ -2,8 +2,8 @@ $(document).ready(function() {
     // navigation click actions 
     $('.scroll-link').on('click', function(event){
         event.preventDefault();
-        var sectionID = $(this).attr("data-id");
-        scrollToID('#' + sectionID, 750);
+        var sectionID = $(this).attr("href");
+        scrollToID(sectionID, 750);
     });
     // scroll to top action
     $('.scroll-top').on('click', function(event) {
