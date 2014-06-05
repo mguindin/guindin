@@ -16,6 +16,7 @@ type Page struct {
 
 func init() {
 	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/oasis.html", oasisHandler)
 	http.HandleFunc("/favicon.ico", handleFavicon)
 	http.HandleFunc("/public/css/", handleCss)
 	http.HandleFunc("/public/img/", handleImg)
@@ -23,8 +24,8 @@ func init() {
 	http.HandleFunc("/public/js/", handleJs)
 }
 
-func renderIndex(w http.ResponseWriter) {
-	t := template.Must(template.New("Index.html").ParseGlob(filepath.Join(getTmplDir(), "*")))
+func renderPage(w http.ResponseWriter, name string) {
+	t := template.Must(template.New(name).ParseGlob(filepath.Join(getTmplDir(), "*")))
 	err := t.Execute(w, nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -32,7 +33,11 @@ func renderIndex(w http.ResponseWriter) {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	renderIndex(w)
+	renderPage(w, "Index.html")
+}
+
+func oasisHandler(w http.ResponseWriter, r *http.Request) {
+	renderPage(w, "Oasis.html")
 }
 
 func getPublicDir() string {

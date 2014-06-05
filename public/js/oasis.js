@@ -185,7 +185,7 @@ if (night == 0) //Day -> Night
 	nightMap.onload = function() {
 		context.drawImage(nightMap, 0, 0);
 	};
-	nightMap.src='http://matt.guindin.com/assets/img/night_map.gif';
+	nightMap.src='http://matt.guindin.com/public/img/night_map.gif';
 	}
 else // Night -> Day
 	{
@@ -194,7 +194,7 @@ else // Night -> Day
 	dayMap.onload = function() {
 		context.drawImage(dayMap, 0, 0);
 	};	
-	dayMap.src='http://matt.guindin.com/assets/img/day_map.gif';
+	dayMap.src='http://matt.guindin.com/public/img/day_map.gif';
 	}
 drawIcons(gps,bft,is,nightmode);//Draw icons first?
 }
@@ -207,7 +207,7 @@ function drawing()
 	dayMap.onload = function() {
 		context.drawImage(dayMap, 0, 0);
 	};
-	dayMap.src='http://matt.guindin.com/assets/img/day_map.gif';
+	dayMap.src='http://matt.guindin.com/public/img/day_map.gif';
 	message='GPS Self-Test Active';
 	displayMessage(message);
 	pausecomp(2000); //Wait 2 seconds for Self-Test to operate
@@ -347,7 +347,7 @@ function drawIcons(gps,bft,is,night) //Draws GPS arrow, BFT, and IS points
 	else if ((gps == 1) && (night == 1) && (bft == 1) && (is == 0)) //Nighttime GPS && BFT
 	{
 		//Nighttime GPS
-		context.fillStyle = "rgba(255, 165, 0, 1)"
+		context.fillStyle = "rgba(255, 165, 0, 1)";
 		context.beginPath();
 		context.moveTo(235,340);
 		context.lineTo(240,320);
@@ -378,7 +378,7 @@ function drawIcons(gps,bft,is,night) //Draws GPS arrow, BFT, and IS points
 	else if ((gps == 1) && (night == 1) && (bft == 1) && (is == 1)) //Nighttime Everything
 	{
 		//Nighttime GPS
-		context.fillStyle = "rgba(255, 165, 0, 1)"
+		context.fillStyle = "rgba(255, 165, 0, 1)";
 		context.beginPath();
 		context.moveTo(235,340);
 		context.lineTo(240,320);
@@ -426,7 +426,7 @@ function drawIcons(gps,bft,is,night) //Draws GPS arrow, BFT, and IS points
 	else //Nighttime Everything
 	{
 		//Night time GPS
-		context.fillStyle = "rgba(255, 165, 0, 1)"
+		context.fillStyle = "rgba(255, 165, 0, 1)";
 		context.beginPath();
 		context.moveTo(235,340);
 		context.lineTo(240,320);
