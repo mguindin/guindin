@@ -1,10 +1,9 @@
 guindin
 =======
 
-matt.guindin.com website code (most of it)
+matt.guindin.com website code.  Pretty self-explanatory.
 
-The site is made using [Bootstrap](http://getbootstrap.com), [go](http://golang.org) and
-[Revel](http://revel.github.io/)
+The site is made using [Bootstrap](http://getbootstrap.com) and [go](http://golang.org)
 
 I'm a web developer and not a designer, so my site may not be that
 aesthetically pleasing, but I'm trying to improve that.
