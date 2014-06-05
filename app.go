@@ -17,6 +17,7 @@ type Page struct {
 func init() {
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/oasis.html", oasisHandler)
+	http.HandleFunc("/lunch.html", lunchHandler)
 	http.HandleFunc("/favicon.ico", handleFavicon)
 	http.HandleFunc("/public/css/", handleCss)
 	http.HandleFunc("/public/img/", handleImg)
@@ -38,6 +39,10 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func oasisHandler(w http.ResponseWriter, r *http.Request) {
 	renderPage(w, "Oasis.html")
+}
+
+func lunchHandler(w http.ResponseWriter, r *http.Request) {
+	renderPage(w, "Lunch.html")
 }
 
 func getPublicDir() string {
