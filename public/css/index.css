@@ -66,20 +66,13 @@ div#footer{
     margin-right: auto;
 }
 
-
-.page-header {
-    margin-top: 30px;
-}
-
 .blue-section {
-    margin-top: 60px;
-    /*background-color: #2ba6cb;
-    color: midnightblue;*/
+    /*background-color: #086CA2;
+    color: darkslategray;*/
     width: 100%;
 }
 
 .white-section {
-    margin-top: 60px;
     background-color: white;
     color: black;
     width: 100%
