@@ -1,12 +1,12 @@
 package guindin
 
 import (
-	"text/template"
+	"fmt"
+	"github.com/kjk/u"
 	"net/http"
 	"path/filepath"
-	"fmt"
 	"strings"
-	"github.com/kjk/u"
+	"text/template"
 )
 
 type Page struct {
@@ -144,7 +144,7 @@ func getReferer(r *http.Request) string {
 }
 
 func serve404(w http.ResponseWriter, r *http.Request) {
-	if (getReferer(r) != "") {
+	if getReferer(r) != "" {
 		fmt.Printf("404: '%s', referer: '%s'", r.URL.Path, getReferer(r))
 	}
 	http.NotFound(w, r)
