@@ -16,11 +16,12 @@ $(document).ready(function() {
         $('#main-nav').toggleClass("open");
     });
 });
+
 // scroll function
 function scrollToID(id, speed){
     var offSet = 40;
     var targetOffset = $(id).offset().top - offSet;
-    var mainNav = $('#main-nav');
+    var mainNav = $('#navbar-collapse');
     $('html,body').animate({scrollTop:targetOffset}, speed);
     if (mainNav.hasClass("open")) {
         mainNav.css("height", "1px").removeClass("in").addClass("collapse");
@@ -32,3 +33,4 @@ if (typeof console === "undefined") {
         log: function() { }
     };
 }
+
