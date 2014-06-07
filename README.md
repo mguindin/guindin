@@ -1,5 +1,6 @@
 guindin
 =======
+![Travis build status](https://travis-ci.org/mguindin/guindin.svg?branch=master)
 
 matt.guindin.com website code.  Pretty self-explanatory.
 
