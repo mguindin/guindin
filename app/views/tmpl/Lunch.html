@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand scroll-top" href="#">Matt</a>
+            <a class="navbar-brand" href="index.html">Matt</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -26,10 +26,15 @@
     <section id="lunch-selection">
         <div class="jumbotron">
             <p>What will you be having?</p>
+            <div id="geo"></div>
             <form action="/lunch-submit" method="post">
-                <textarea name="content" rows="1" cols="60"></textarea>
+                Location (lat/long geo): <textarea name="latlong" id="latlong" rows="1" cols="60"></textarea><br>
+                Location (zip code): <textarea name="location" id="location" rows="1" cols="60">10021</textarea><br>
+                Cuisine: <textarea name="cuisine" rows="1" cols="60">thai</textarea><br>
+                Radius (miles): <textarea name="radius" rows="1" cols="60">0.1</textarea><br>
+                Choice (1-10): <textarea name="choice" rows="1" cols="60">1</textarea><br>
                 <br>
-                <input type="submit" value="Enter Cuisine">
+                <input type="submit" value="Find me food!">
             </form>
             <p>Result:</p>
             <pre>{{.}}</pre>

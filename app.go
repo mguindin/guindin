@@ -6,6 +6,7 @@ import (
 	"github.com/kjk/u"
 	"net/http"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"text/template"
 	"lunchS"
@@ -43,8 +44,13 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func lunchSelectHandler(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r)
-	cuisine := r.FormValue("content")
-	res := lunchS.ProcessLunch("0.1", "10013", cuisine, 1, c)
+	cuisine := r.FormValue("cuisine")
+	radius := r.FormValue("random")
+	location := r.FormValue("location")
+	latlong := r.FormValue("latlong")
+	choice := r.FormValue("choice")
+	choiceInt,_ := strconv.ParseInt(choice, 0, 0)
+	res := lunchS.ProcessLunch(radius, location, latlong, cuisine, int(choiceInt), c)
 	t := template.Must(template.New("Lunch.html").ParseGlob(filepath.Join(getTmplDir(), "*")))
 	err := t.Execute(w, res)
 	if err != nil {

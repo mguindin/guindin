@@ -15,10 +15,10 @@ type Password struct {
 	Value string
 }
 
-func ProcessLunch(radius string, location string, cuisine string, choice int, c appengine.Context) string {
+func ProcessLunch(radius string, location string, latlong string, cuisine string, choice int, c appengine.Context) string {
 	lunch := lunchLib.Lunch{
 		Radius:   radius,
-		Location: location,
+		Location: "&location=" +location,
 		Debug:    false,
 		Cuisine:  cuisine,
 		Yelp_url: "http://api.yelp.com/business_review_search?",
@@ -26,6 +26,10 @@ func ProcessLunch(radius string, location string, cuisine string, choice int, c 
 		Rev:      make(map[string]interface{}),
 		Choice:   choice}
 	yelp_key := getYelpKey(c)
+	if (latlong != "") {
+		//let's use geolocation instead
+		lunch.Location = "&" + latlong
+	}
 	if lunch.Debug {
 		fmt.Println(lunch.BuildYelpUrl(yelp_key))
 		fmt.Printf("%+v\n", lunch)
@@ -62,4 +66,3 @@ func makeRequest(yelp_key string, c appengine.Context, lunch lunchLib.Lunch) []b
 	//fmt.Print(string(body))
 	return body
 }
-
