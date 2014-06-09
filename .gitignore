@@ -3,3 +3,4 @@ site/_site
 *.iml
 .DS_Store
 .idea/
+yelp_key

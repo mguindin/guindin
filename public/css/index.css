@@ -63,6 +63,11 @@ div#footer{
     margin-right: auto;
 }
 
+ul
+{
+    list-style-type: none;
+}
+
 .blue-section {
     /*background-color: #086CA2;
     color: darkslategray;*/

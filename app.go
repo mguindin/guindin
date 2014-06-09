@@ -1,12 +1,14 @@
-package guindin
+package main
 
 import (
+	"appengine"
 	"fmt"
 	"github.com/kjk/u"
 	"net/http"
 	"path/filepath"
 	"strings"
 	"text/template"
+	"lunchS"
 )
 
 type Page struct {
@@ -16,6 +18,8 @@ type Page struct {
 
 func init() {
 	http.HandleFunc("/", indexHandler)
+	http.HandleFunc("/index.html", indexHandler)
+	http.HandleFunc("/lunch-submit", lunchSelectHandler)
 	http.HandleFunc("/oasis.html", oasisHandler)
 	http.HandleFunc("/lunch.html", lunchHandler)
 	http.HandleFunc("/favicon.ico", handleFavicon)
@@ -35,6 +39,17 @@ func renderPage(w http.ResponseWriter, name string) {
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
 	renderPage(w, "Index.html")
+}
+
+func lunchSelectHandler(w http.ResponseWriter, r *http.Request) {
+	c := appengine.NewContext(r)
+	cuisine := r.FormValue("content")
+	res := lunchS.ProcessLunch("0.1", "10013", cuisine, 1, c)
+	t := template.Must(template.New("Lunch.html").ParseGlob(filepath.Join(getTmplDir(), "*")))
+	err := t.Execute(w, res)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
 }
 
 func oasisHandler(w http.ResponseWriter, r *http.Request) {
