@@ -3,7 +3,7 @@
     padding: 0;
     font-family: 'Helvetica Neue', arial, sans-serif;
 }
-.navbar .brand {
+.navbar .navbar-brand {
     margin-left: 10px;
 }
 .header {
@@ -42,9 +42,6 @@ hr {border-color: #ddd;}
 @media (min-width: 768px) {
     .header .navbar-brand {
         padding-left: 0;
-    }
-    .navbar-nav {
-        float: right;
     }
 }
 @media (max-width: 480px) {
