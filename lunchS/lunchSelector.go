@@ -19,7 +19,7 @@ func ProcessLunch(radius string, location string, latlong string, cuisine string
 	lunch := lunchLib.Lunch{
 		Radius:   radius,
 		Location: "&location=" +location,
-		Debug:    false,
+		Debug:    true,
 		Cuisine:  cuisine,
 		Yelp_url: "http://api.yelp.com/business_review_search?",
 		Rating:   0,
@@ -51,7 +51,7 @@ func getYelpKey(c appengine.Context) string {
 	if (err == nil) {
 		return pass.Value
 	} else {
-		return err.Error() //will error out
+		return err.Error()
 	}
 }
 func makeRequest(yelp_key string, c appengine.Context, lunch lunchLib.Lunch) []byte {

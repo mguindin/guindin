@@ -49,7 +49,7 @@ func lunchSelectHandler(w http.ResponseWriter, r *http.Request) {
 	location := r.FormValue("location")
 	latlong := r.FormValue("latlong")
 	choice := r.FormValue("choice")
-	choiceInt,_ := strconv.ParseInt(choice, 0, 0)
+	choiceInt, _ := strconv.ParseInt(choice, 0, 0)
 	res := lunchS.ProcessLunch(radius, location, latlong, cuisine, int(choiceInt), c)
 	t := template.Must(template.New("Lunch.html").ParseGlob(filepath.Join(getTmplDir(), "*")))
 	err := t.Execute(w, res)
