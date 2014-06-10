@@ -25,19 +25,6 @@ $(document).ready(function() {
                         message: 'Radius must be a number'
                     }
                 }
-            },
-            choice: {
-                container: '#choiceMessage',
-                validators: {
-                    notEmpty: {
-                        message: 'Numeric choice required (<10)'
-                    },
-                    lessThan: {
-                        message: 'Numeric choice less than 10 required',
-                        value: 10,
-                        inclusive: true
-                    }
-                }
             }
         }
     });

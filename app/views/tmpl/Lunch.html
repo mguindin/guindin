@@ -39,15 +39,12 @@
                     <label for="radius">Radius</label>
                     <input type="text" class="form-control" name="radius" id="radius" placeholder="0.1">
                     <span class="help-block" id="radiusMessage"></span>
-                    <label for="choice">Choice</label>
-                    <input type="text" class="form-control" name="choice" id="choice" placeholder="1">
-                    <span class="help-block" id="choiceMessage"></span>
                 </div>
                 <br>
                 <input class="btn btn-primary" type="submit" value="Find me food!">
             </form>
             <p>Result:</p>
-            <pre>{{.}}</pre>
+            <pre>{{println .}}</pre>
         </div>
     </section>
 </div>

@@ -38,8 +38,9 @@ func ProcessLunch(radius string, location string, latlong string, cuisine string
 		body, err := makeRequest(yelp_key, c, lunch)
 		if (err != nil) {
 			return err.Error()
+		} else {
+			return lunch.ProcessYelpReturn(body)
 		}
-		return lunch.ProcessYelpReturn(body)
 	}
 }
 
@@ -62,6 +63,10 @@ func makeRequest(yelp_key string, c appengine.Context, lunch lunchLib.Lunch) ([]
 	t := urlfetch.Transport{Context:c, Deadline: 30 * time.Second}
 	client := http.Client{Transport: &t}
 	resp, err := client.Get(lunch.BuildYelpUrl(yelp_key))
+	var b []byte
+	if (err != nil) {
+		return b, err
+	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	//fmt.Print(string(body))

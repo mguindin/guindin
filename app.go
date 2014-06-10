@@ -6,10 +6,10 @@ import (
 	"github.com/kjk/u"
 	"net/http"
 	"path/filepath"
-	"strconv"
 	"strings"
 	"text/template"
 	"lunchS"
+	"math/rand"
 )
 
 type Page struct {
@@ -48,9 +48,8 @@ func lunchSelectHandler(w http.ResponseWriter, r *http.Request) {
 	radius := r.FormValue("random")
 	location := r.FormValue("location")
 	latlong := r.FormValue("latlong")
-	choice := r.FormValue("choice")
-	choiceInt, _ := strconv.ParseInt(choice, 0, 0)
-	res := lunchS.ProcessLunch(radius, location, latlong, cuisine, int(choiceInt), c)
+	choice := rand.Intn(10)
+	res := lunchS.ProcessLunch(radius, location, latlong, cuisine, choice, c)
 	t := template.Must(template.New("Lunch.html").ParseGlob(filepath.Join(getTmplDir(), "*")))
 	err := t.Execute(w, res)
 	if err != nil {
