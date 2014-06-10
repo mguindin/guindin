@@ -30,15 +30,15 @@
             <form action="/lunch-submit" method="post">
                 <div class="form-group">
                     <label for="latlong">Location (lat/long geo)</label>
-                    <textarea class="form-control" id="latlong" placeholder=""></textarea>
+                    <textarea class="form-control" name="latlong" id="latlong" placeholder=""></textarea>
                     <label for="location">Location (zip code)</label>
-                    <input type="text" class="form-control" id="location" placeholder="10021">
+                    <input type="text" class="form-control" name="location" id="location" placeholder="10021">
                     <label for="cuisine">Cuisine</label>
-                    <input type="text" class="form-control" id="cuisine" data-provide="typeahead" placeholder="Thai">
+                    <input type="text" class="form-control" name="cuisine" id="cuisine" data-provide="typeahead" placeholder="Thai">
                     <label for="radius">Radius</label>
-                    <input type="text" class="form-control" id="radius" placeholder="0.1">
+                    <input type="text" class="form-control" name="radius" id="radius" placeholder="0.1">
                     <label for="choice">Choice</label>
-                    <input type="text" class="form-control" id="choice" placeholder="1">
+                    <input type="text" class="form-control" name="choice" id="choice" placeholder="1">
                 </div>
                 <br>
                 <input class="btn btn-primary" type="submit" value="Find me food!">
