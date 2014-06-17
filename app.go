@@ -2,14 +2,18 @@ package main
 
 import (
 	"appengine"
+	"appengine/datastore"
+	"appengine/urlfetch"
 	"fmt"
 	"github.com/kjk/u"
+	"github.com/mguindin/goLunch/lunchLib"
+	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"path/filepath"
 	"strings"
 	"text/template"
-	"lunchS"
-	"math/rand"
+	"time"
 )
 
 type Page struct {
@@ -49,7 +53,7 @@ func lunchSelectHandler(w http.ResponseWriter, r *http.Request) {
 	location := r.FormValue("location")
 	latlong := r.FormValue("latlong")
 	choice := rand.Intn(10)
-	res := lunchS.ProcessLunch(radius, location, latlong, cuisine, choice, c)
+	res := processLunch(radius, location, latlong, cuisine, choice, c)
 	t := template.Must(template.New("Lunch.html").ParseGlob(filepath.Join(getTmplDir(), "*")))
 	err := t.Execute(w, res)
 	if err != nil {
@@ -176,3 +180,66 @@ func serve404(w http.ResponseWriter, r *http.Request) {
 }
 
 var filesPerDir = make(map[string][]string)
+
+//Lunch portion
+
+type password struct {
+	Value string
+}
+
+func processLunch(radius string, location string, latlong string, cuisine string, choice int, c appengine.Context) string {
+	lunch := lunchLib.Lunch{
+		Radius:   radius,
+		Location: "&location=" + location,
+		Debug:    false,
+		Cuisine:  cuisine,
+		Yelp_url: "http://api.yelp.com/business_review_search?",
+		Rating:   0,
+		Rev:      make(map[string]interface{}),
+		Choice:   choice}
+	yelp_key := getYelpKey(c)
+	if latlong != "" {
+		//let's use geolocation instead
+		lunch.Location = "&" + latlong
+	}
+	if lunch.Debug {
+		fmt.Println(lunch.BuildYelpUrl(yelp_key))
+		fmt.Printf("%+v\n", lunch)
+		return lunch.BuildYelpUrl(yelp_key)
+	} else {
+		body, err := makeRequest(yelp_key, c, lunch)
+		if err != nil {
+			return err.Error()
+		} else {
+			return lunch.ProcessYelpReturn(body)
+		}
+	}
+}
+
+// guestbookKey returns the key used for all guestbook entries.
+func passwordYelpKey(c appengine.Context) *datastore.Key {
+	// The string "default_guestbook" here could be varied to have multiple guestbooks.
+	return datastore.NewKey(c, "Password", "yelp", 0, nil)
+}
+
+func getYelpKey(c appengine.Context) string {
+	pass := new(password)
+	err := datastore.Get(c, passwordYelpKey(c), pass)
+	if err == nil {
+		return pass.Value
+	} else {
+		return err.Error()
+	}
+}
+func makeRequest(yelp_key string, c appengine.Context, lunch lunchLib.Lunch) ([]byte, error) {
+	t := urlfetch.Transport{Context: c, Deadline: 30 * time.Second}
+	client := http.Client{Transport: &t}
+	resp, err := client.Get(lunch.BuildYelpUrl(yelp_key))
+	var b []byte
+	if err != nil {
+		return b, err
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
+	return body, err
+}
