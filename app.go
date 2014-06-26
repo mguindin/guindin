@@ -9,11 +9,12 @@ import (
 	"github.com/mguindin/goLunch/lunchLib"
 	"io/ioutil"
 	"math/rand"
-	"net/http"
+	. "net/http"
 	"path/filepath"
 	"strings"
 	"text/template"
 	"time"
+	"github.com/gorilla/mux"
 )
 
 type Page struct {
@@ -22,31 +23,35 @@ type Page struct {
 }
 
 func init() {
-	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/index.html", indexHandler)
-	http.HandleFunc("/lunch-submit", lunchSelectHandler)
-	http.HandleFunc("/oasis.html", oasisHandler)
-	http.HandleFunc("/lunch.html", lunchHandler)
-	http.HandleFunc("/favicon.ico", handleFavicon)
-	http.HandleFunc("/public/css/", handleCss)
-	http.HandleFunc("/public/img/", handleImg)
-	http.HandleFunc("/public/ico/", handleIco)
-	http.HandleFunc("/public/js/", handleJs)
+	r := mux.NewRouter()
+	r.HandleFunc("/blog/{key}", blogHandler)
+	r.HandleFunc("/blog.html", blogIndexHandler)
+	r.HandleFunc("/", indexHandler)
+	r.HandleFunc("/index.html", indexHandler)
+	r.HandleFunc("/lunch-submit", lunchSelectHandler)
+	r.HandleFunc("/oasis.html", oasisHandler)
+	r.HandleFunc("/lunch.html", lunchHandler)
+	r.HandleFunc("/favicon.ico", handleFavicon)
+	r.HandleFunc("/public/css/{key}", handleCss)
+	r.HandleFunc("/public/img/{key}", handleImg)
+	r.HandleFunc("/public/ico/{key}", handleIco)
+	r.HandleFunc("/public/js/{key}", handleJs)
+	Handle("/", r)
 }
 
-func renderPage(w http.ResponseWriter, name string) {
+func renderPage(w ResponseWriter, name string) {
 	t := template.Must(template.New(name).ParseGlob(filepath.Join(getTmplDir(), "*")))
 	err := t.Execute(w, nil)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		Error(w, err.Error(), StatusInternalServerError)
 	}
 }
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
+func indexHandler(w ResponseWriter, r *Request) {
 	renderPage(w, "Index.html")
 }
 
-func lunchSelectHandler(w http.ResponseWriter, r *http.Request) {
+func lunchSelectHandler(w ResponseWriter, r *Request) {
 	c := appengine.NewContext(r)
 	cuisine := r.FormValue("cuisine")
 	radius := r.FormValue("random")
@@ -57,16 +62,34 @@ func lunchSelectHandler(w http.ResponseWriter, r *http.Request) {
 	t := template.Must(template.New("Lunch.html").ParseGlob(filepath.Join(getTmplDir(), "*")))
 	err := t.Execute(w, res)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		Error(w, err.Error(), StatusInternalServerError)
 	}
 }
 
-func oasisHandler(w http.ResponseWriter, r *http.Request) {
+func oasisHandler(w ResponseWriter, r *Request) {
 	renderPage(w, "Oasis.html")
 }
 
-func lunchHandler(w http.ResponseWriter, r *http.Request) {
+func lunchHandler(w ResponseWriter, r *Request) {
 	renderPage(w, "Lunch.html")
+}
+
+func blogHandler(w ResponseWriter, r *Request) {
+	params := mux.Vars(r)
+	path := filepath.Join(getBlogPostDir(), params["key"])
+	t := template.Must(template.New("index.html").ParseGlob(filepath.Join(path, "*")))
+	err := t.Execute(w, nil)
+	if err != nil {
+		Error(w, err.Error(), StatusInternalServerError)
+	}
+}
+
+func blogIndexHandler(w ResponseWriter, r *Request) {
+	t := template.Must(template.New("index.html").ParseGlob(filepath.Join(getBlogPostDir(), "index.html")))
+	err := t.Execute(w, nil)
+	if err != nil {
+		Error(w, err.Error(), StatusInternalServerError)
+	}
 }
 
 func getPublicDir() string {
@@ -90,28 +113,28 @@ func getErrorDir() string {
 }
 
 // url: /favicon.ico
-func handleFavicon(w http.ResponseWriter, r *http.Request) {
+func handleFavicon(w ResponseWriter, r *Request) {
 	serveFileFromDir(w, r, getIcoDir(), "favicon.ico")
 }
 
-func handleCss(w http.ResponseWriter, r *http.Request) {
-	file := r.URL.Path[len("/public/css/"):]
-	serveFileFromDir(w, r, getCssDir(), file)
+func handleCss(w ResponseWriter, r *Request) {
+	params := mux.Vars(r)
+	serveFileFromDir(w, r, getCssDir(), params["key"])
 }
 
-func handleJs(w http.ResponseWriter, r *http.Request) {
-	file := r.URL.Path[len("/public/js/"):]
-	serveFileFromDir(w, r, getJsDir(), file)
+func handleJs(w ResponseWriter, r *Request) {
+	params := mux.Vars(r)
+	serveFileFromDir(w, r, getJsDir(), params["key"])
 }
 
-func handleIco(w http.ResponseWriter, r *http.Request) {
-	file := r.URL.Path[len("/public/ico"):]
-	serveFileFromDir(w, r, getIcoDir(), file)
+func handleIco(w ResponseWriter, r *Request) {
+	params := mux.Vars(r)
+	serveFileFromDir(w, r, getIcoDir(), params["key"])
 }
 
-func handleImg(w http.ResponseWriter, r *http.Request) {
-	file := r.URL.Path[len("/public/img"):]
-	serveFileFromDir(w, r, getImgDir(), file)
+func handleImg(w ResponseWriter, r *Request) {
+	params := mux.Vars(r)
+	serveFileFromDir(w, r, getImgDir(), params["key"])
 }
 
 func getIcoDir() string {
@@ -130,19 +153,27 @@ func getJsDir() string {
 	return filepath.Join(getPublicDir(), "js")
 }
 
-func serveFileFromDir(w http.ResponseWriter, r *http.Request, dir, fileName string) {
+func getBlogPostDir() string {
+	return filepath.Join(getViewsDir(), "posts")
+}
+
+func getBlogWelcomeDir() string {
+	return filepath.Join(getBlogPostDir(), "post")
+}
+
+func serveFileFromDir(w ResponseWriter, r *Request, dir, fileName string) {
 	if redirectIfFoundMatching(w, r, dir, fileName) {
 		return
 	}
 	filePath := filepath.Join(dir, fileName)
 	if u.PathExists(filePath) {
-		http.ServeFile(w, r, filePath)
+		ServeFile(w, r, filePath)
 	} else {
 		serve404(w, r)
 	}
 }
 
-func redirectIfFoundMatching(w http.ResponseWriter, r *http.Request, dir, fileName string) bool {
+func redirectIfFoundMatching(w ResponseWriter, r *Request, dir, fileName string) bool {
 	var files []string
 	ok := false
 	if files, ok = filesPerDir[dir]; !ok {
@@ -161,22 +192,22 @@ func redirectIfFoundMatching(w http.ResponseWriter, r *http.Request, dir, fileNa
 			diff := len(fileName) - len(f)
 			url := r.URL.Path
 			url = url[:len(url)-diff]
-			http.Redirect(w, r, url, 302)
+			Redirect(w, r, url, 302)
 			return true
 		}
 	}
 	return false
 }
 
-func getReferer(r *http.Request) string {
+func getReferer(r *Request) string {
 	return r.Header.Get("Referer")
 }
 
-func serve404(w http.ResponseWriter, r *http.Request) {
+func serve404(w ResponseWriter, r *Request) {
 	if getReferer(r) != "" {
 		fmt.Printf("404: '%s', referer: '%s'", r.URL.Path, getReferer(r))
 	}
-	http.NotFound(w, r)
+	NotFound(w, r)
 }
 
 var filesPerDir = make(map[string][]string)
@@ -233,7 +264,7 @@ func getYelpKey(c appengine.Context) string {
 }
 func makeRequest(yelp_key string, c appengine.Context, lunch lunchLib.Lunch) ([]byte, error) {
 	t := urlfetch.Transport{Context: c, Deadline: 30 * time.Second}
-	client := http.Client{Transport: &t}
+	client := Client{Transport: &t}
 	resp, err := client.Get(lunch.BuildYelpUrl(yelp_key))
 	var b []byte
 	if err != nil {

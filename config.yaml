@@ -1,0 +1,12 @@
+---
+contentdir: "content"
+layoutdir: "layouts"
+publishdir: "app/views/posts"
+staticdir: "public"
+indexes:
+  category: "categories"
+baseurl: "http://matt.guindin.com/blog"
+title: "Matt's Thoughts on Random Stuff"
+permalinks:
+  post: /:year/:month/:title/
+...

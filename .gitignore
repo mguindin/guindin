@@ -3,4 +3,5 @@ site/_site
 *.iml
 .DS_Store
 .idea/
+app/views/posts
 yelp_key
