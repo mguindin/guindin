@@ -7,3 +7,5 @@ categories:
     - "site"
     - "test"
 ---
+
+Another test post

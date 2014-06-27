@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Site on  </title>
+      <generator uri="https://hugo.spf13.com">Hugo</generator>
+    <link>/categories/site/index.xml</link>
+    
+    
+    
+    <updated>Sun, 22 Jun 2014 00:00:00 UTC</updated>
+    
+    <item>
+      <title>Again, again, and again</title>
+      <link>/hugo_sample</link>
+      <pubDate>Sun, 22 Jun 2014 00:00:00 UTC</pubDate>
+      
+      <guid>/hugo_sample</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

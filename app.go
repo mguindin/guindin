@@ -24,8 +24,6 @@ type Page struct {
 
 func init() {
 	r := mux.NewRouter()
-	r.HandleFunc("/blog/{key}", blogHandler)
-	r.HandleFunc("/blog.html", blogIndexHandler)
 	r.HandleFunc("/", indexHandler)
 	r.HandleFunc("/index.html", indexHandler)
 	r.HandleFunc("/lunch-submit", lunchSelectHandler)
@@ -36,6 +34,8 @@ func init() {
 	r.HandleFunc("/public/img/{key}", handleImg)
 	r.HandleFunc("/public/ico/{key}", handleIco)
 	r.HandleFunc("/public/js/{key}", handleJs)
+	r.HandleFunc("/blog/{key}", blogHandler)
+	r.HandleFunc("/blog.html", blogIndexHandler)
 	Handle("/", r)
 }
 
@@ -154,7 +154,7 @@ func getJsDir() string {
 }
 
 func getBlogPostDir() string {
-	return filepath.Join(getViewsDir(), "posts")
+	return filepath.Join(filepath.Join(getViewsDir(), "posts"), "blog")
 }
 
 func getBlogWelcomeDir() string {
