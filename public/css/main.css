@@ -12,9 +12,9 @@ header .svglink, header svglink:hover { text-decoration: none; }
 header nav svg { fill: #B0CDFF; width: 24px; }
 header nav svg:hover { fill: #B0B7FF; }
 
-a { color: #B0CDFF; }
+a { color: #B0CDFF; font-size: inherit; line-height: inherit; }
 
-a:hover { color: #B0B7FF; }
+a:hover { color: #B0B7FF; font-size: inherit; line-height: inherit; }
 
 h1 { font-size: 16px; line-height: 1.25em; text-transform: uppercase; font-weight: normal; padding: 0px; margin: 0px; }
 
@@ -25,7 +25,11 @@ p { margin: 20px 0px; padding: 0px; }
 
 img, video { width: 100%; margin: 20px 0px; padding: 0px; }
 
-audio { width: 50%; margin-bottom: 20px; padding: 0px; }
+audio { width: 50%; margin-bottom: 20px; padding: 0px; background: #120E14; }
+
+.ipa { font-family: monospace, sans-serif;}
+
+.email { font-family: monospace; font-weight: bold; margin-top: 5px; }
 
 ::selection {
   background: #992542; /* WebKit/Blink Browsers */
