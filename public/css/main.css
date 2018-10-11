@@ -5,16 +5,16 @@ body { background: #120E14; color: #B0CDFF; font-family: "Fira Mono", monospace;
 
 @media screen and (max-width: 630px) { body { padding: 0px 40px; } }
 header { margin: 140px 0px 45px; text-transform: uppercase; }
-header .site-title a { text-decoration: none; font-size: inherit; line-height: inherit; }
+header .site-title a { text-decoration: none; }
 header .devlog-title { font-weight: bold; }
 header nav { margin-top: 20px; }
 header .svglink, header svglink:hover { text-decoration: none; }
 header nav svg { fill: #B0CDFF; width: 24px; }
 header nav svg:hover { fill: #B0B7FF; }
 
-a { color: #B0CDFF; font-size: inherit; line-height: inherit; }
+a { color: #B0CDFF; }
 
-a:hover { color: #B0B7FF; font-size: inherit; line-height: inherit; }
+a:hover { color: #B0B7FF; }
 
 h1 { font-size: 16px; line-height: 1.25em; text-transform: uppercase; font-weight: normal; padding: 0px; margin: 0px; }
 
