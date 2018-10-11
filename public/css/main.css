@@ -9,7 +9,7 @@ header .site-title a { text-decoration: none; }
 header .devlog-title { font-weight: bold; }
 header nav { margin-top: 20px; }
 header .svglink, header svglink:hover { text-decoration: none; }
-header nav svg { fill: #B0CDFF; width: 14px; }
+header nav svg { fill: #B0CDFF; width: 24px; }
 header nav svg:hover { fill: #B0B7FF; }
 
 a { color: #B0CDFF; }
