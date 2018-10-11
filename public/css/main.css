@@ -5,7 +5,7 @@ body { background: #120E14; color: #B0CDFF; font-family: "Fira Mono", monospace;
 
 @media screen and (max-width: 630px) { body { padding: 0px 40px; } }
 header { margin: 140px 0px 45px; text-transform: uppercase; }
-header .site-title a { text-decoration: none; }
+header .site-title a { text-decoration: none; font-size: inherit; line-height: inherit; }
 header .devlog-title { font-weight: bold; }
 header nav { margin-top: 20px; }
 header .svglink, header svglink:hover { text-decoration: none; }
