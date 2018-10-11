@@ -4,7 +4,7 @@
 body { background: #120E14; color: #B0CDFF; font-family: "Fira Mono", monospace; font-size: 16px; line-height: 1.25em; margin: 0 auto; margin-bottom: 120px; padding: 0px; max-width: 550px; text-rendering: geometricPrecision; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
 
 @media screen and (max-width: 630px) { body { padding: 0px 40px; } }
-header { margin: 140px 0px 45px; text-transform: uppercase; }
+header { margin: 20% 0px 45px; text-transform: uppercase; }
 header .site-title a { text-decoration: none; }
 header .devlog-title { font-weight: bold; }
 header nav { margin-top: 20px; }
@@ -20,12 +20,11 @@ h1 { font-size: 16px; line-height: 1.25em; text-transform: uppercase; font-weigh
 
 h2, h3, h4, h5, h6 { font-size: 14px; line-height: 1em; text-transform: uppercase; font-weight: normal; padding: 0px; margin: 0px; }
 
-
 p { margin: 20px 0px; padding: 0px; }
 
 img, video { width: 100%; margin: 20px 0px; padding: 0px; }
 
-audio { width: 50%; margin-bottom: 20px; padding: 0px; background: #120E14; }
+audio { width: 275px; max-width: 100%; margin-bottom: 20px; padding: 0px; background: #120E14; }
 
 .ipa { font-family: monospace, sans-serif;}
 
