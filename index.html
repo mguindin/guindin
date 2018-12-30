@@ -69,9 +69,14 @@
     </div>
 
     <h1>How to reach me</h1>
+    <script type="text/javascript">
+      function mailme(user, domain, subject) {
+        var at = String.fromCharCode(64);
+        window.location.href = "mailto:" + user + at + domain + ".in?subject=" +subject;
+      }
+    </script>
     <div>
-      <br>The best way to reach me is emailing me at:<br>
-      <div class="email">m@my-last-name.com</div>
+      <br><a href="javascript:mailme('m','guind','Hello!')" class="email">Mail me</a><br>
     </div>
   </body>
 </html>
